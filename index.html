@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Szu is coming! · 15 July 2026</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmY2YjZiIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZmZjYTI4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I2M0NGRmZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9InVybCgjZykiLz4KICA8dGV4dCB4PSIzMiIgeT0iNDQiIGZvbnQtc2l6ZT0iMzYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCI+4pyI77iPPC90ZXh0Pgo8L3N2Zz4="/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{min-height:100%;font-family:'Nunito',sans-serif;}
+    body{
+      min-height:100vh;
+      background:linear-gradient(160deg,#ff6b6b 0%,#ff8e53 25%,#ffca28 55%,#ff6b9d 80%,#c44dff 100%);
+      background-attachment:fixed;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:2.5rem 1.2rem;
+      position:relative;overflow:hidden;
+    }
+    .emoji-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+    .emoji-float{
+      position:absolute;bottom:-60px;font-size:var(--sz,1.8rem);
+      animation:floatUp var(--dur,6s) var(--delay,0s) linear infinite;
+      opacity:0;user-select:none;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0;}
+      10%{opacity:1;}
+      90%{opacity:0.7;}
+      100%{transform:translateY(-110vh) rotate(var(--rot,360deg)) scale(1.1);opacity:0;}
+    }
+    .card{
+      width:100%;max-width:520px;
+      background:rgba(255,255,255,0.92);
+      border-radius:32px;
+      padding:2.2rem 2rem 1.8rem;
+      position:relative;z-index:2;
+      box-shadow:0 8px 40px rgba(255,100,50,0.25),0 2px 0 rgba(255,255,255,0.8) inset;
+      animation:popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes popIn{from{transform:scale(0.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .card-top{text-align:center;margin-bottom:1.6rem;}
+    .big-emoji{font-size:3rem;display:block;animation:wiggle 2s ease-in-out infinite;margin-bottom:0.4rem;}
+    @keyframes wiggle{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
+    .title{
+      font-family:'Pacifico',cursive;
+      font-size:clamp(1.6rem,6vw,2.4rem);
+      background:linear-gradient(90deg,#ff6b6b,#ff8e53,#ffca28,#ff6b9d);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      line-height:1.2;margin-bottom:0.3rem;
+    }
+    .subtitle{font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#bbb;}
+    .route-row{
+      display:flex;align-items:center;justify-content:center;
+      gap:0.8rem;margin-bottom:1.6rem;
+      background:linear-gradient(135deg,#fff5f0,#fff0fa);
+      border-radius:20px;padding:1rem 1.2rem;
+      border:2px dashed #ffb3c1;
+    }
+    .route-city{text-align:center;}
+    .route-code{font-family:'Pacifico',cursive;font-size:clamp(1.4rem,5vw,2rem);color:#ff6b6b;line-height:1;}
+    .route-name{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#ccc;margin-top:2px;}
+    .route-person{font-size:0.85rem;font-weight:800;color:#ff8e53;margin-top:3px;}
+    .route-mid{display:flex;flex-direction:column;align-items:center;gap:3px;}
+    .plane-anim{font-size:1.6rem;animation:planeFly 2s ease-in-out infinite;}
+    @keyframes planeFly{0%,100%{transform:translateX(-3px);}50%{transform:translateX(3px);}}
+    .route-date{font-size:0.65rem;font-weight:700;color:#ddd;letter-spacing:0.1em;}
+    .dyn-sentence{
+      text-align:center;font-size:clamp(0.95rem,3vw,1.1rem);font-weight:700;color:#888;
+      margin-bottom:1.4rem;line-height:1.6;
+      background:#fafafa;border-radius:16px;padding:0.8rem 1rem;border:2px solid #f0f0f0;
+    }
+    .dyn-sentence .num{
+      font-family:'Pacifico',cursive;font-size:clamp(1.1rem,3.5vw,1.35rem);
+      background:linear-gradient(90deg,#ff6b6b,#c44dff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .cd-grid{display:flex;justify-content:center;gap:clamp(0.4rem,2vw,0.8rem);margin-bottom:1.6rem;}
+    .cd-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .cd-bubble{
+      border-radius:20px;padding:clamp(0.6rem,2vw,1rem) clamp(0.7rem,2.5vw,1.2rem);
+      min-width:clamp(3rem,10vw,5rem);text-align:center;transition:transform 0.15s;
+    }
+    .cd-bubble.flash{transform:scale(1.12);}
+    .b1{background:linear-gradient(145deg,#ff6b6b,#ff8e53);box-shadow:0 4px 0 rgba(200,60,30,0.25),0 8px 20px rgba(255,100,50,0.2);}
+    .b2{background:linear-gradient(145deg,#ffca28,#ff8e53);box-shadow:0 4px 0 rgba(200,130,10,0.25),0 8px 20px rgba(255,180,0,0.2);}
+    .b3{background:linear-gradient(145deg,#ff6b9d,#c44dff);box-shadow:0 4px 0 rgba(160,40,180,0.25),0 8px 20px rgba(200,100,255,0.2);}
+    .b4{background:linear-gradient(145deg,#c44dff,#7b5ea7);box-shadow:0 4px 0 rgba(100,30,160,0.25),0 8px 20px rgba(150,50,200,0.2);}
+    .cd-num{font-family:'Pacifico',cursive;font-size:clamp(1.6rem,6vw,2.8rem);color:#fff;line-height:1;}
+    .cd-unit{font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;}
+    .u1{color:#ff6b6b;}.u2{color:#ffca28;}.u3{color:#ff6b9d;}.u4{color:#c44dff;}
+    .cd-sep{
+      font-family:'Pacifico',cursive;font-size:clamp(1.2rem,4vw,2rem);
+      color:#ffca28;padding-top:clamp(0.4rem,1.5vw,0.6rem);
+      text-shadow:0 2px 8px rgba(255,180,0,0.4);
+      animation:blink 1s step-end infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+    .card-footer{
+      display:flex;justify-content:space-between;align-items:center;
+      border-top:2px dashed #f0e0ff;padding-top:1rem;flex-wrap:wrap;gap:0.5rem;
+    }
+    .footer-names{font-family:'Pacifico',cursive;font-size:0.95rem;color:#ff8e53;}
+    .footer-flags{display:flex;gap:0.3rem;font-size:1.1rem;}
+    .footer-date{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#ccc;}
+    .arrived-msg{
+      font-family:'Pacifico',cursive;font-size:clamp(1.1rem,4vw,1.5rem);
+      background:linear-gradient(90deg,#ff6b6b,#c44dff);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-align:center;padding:0.5rem 0;display:none;
+    }
+    @media(max-width:400px){
+      .card{padding:1.6rem 1.2rem 1.4rem;}
+      .route-row{gap:0.4rem;padding:0.8rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="emoji-bg" id="emojiBg"></div>
+
+  <div class="card">
+    <div class="card-top">
+      <span class="big-emoji">🎉</span>
+      <div class="title">Szu is coming!</div>
+      <div class="subtitle">Amsterdam is waiting ✨</div>
+    </div>
+
+    <div class="route-row">
+      <div class="route-city">
+        <div class="route-code">SVQ</div>
+        <div class="route-name">Sevilla</div>
+        <div class="route-person">Szu 🌸</div>
+      </div>
+      <div class="route-mid">
+        <div class="plane-anim">✈️</div>
+        <div class="route-date">15 · 07 · 2026</div>
+        <div class="route-date">15:40</div>
+      </div>
+      <div class="route-city">
+        <div class="route-code" style="color:#c44dff;">AMS</div>
+        <div class="route-name">Amsterdam</div>
+        <div class="route-person" style="color:#c44dff;">Mike 🌷</div>
+      </div>
+    </div>
+
+    <div class="dyn-sentence" id="dynSentence">—</div>
+
+    <div class="cd-grid" id="cdGrid">
+      <div class="cd-item">
+        <div class="cd-bubble b1"><div class="cd-num" id="days">--</div></div>
+        <div class="cd-unit u1">Days</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item">
+        <div class="cd-bubble b2"><div class="cd-num" id="hours">--</div></div>
+        <div class="cd-unit u2">Hours</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item">
+        <div class="cd-bubble b3"><div class="cd-num" id="minutes">--</div></div>
+        <div class="cd-unit u3">Min</div>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item">
+        <div class="cd-bubble b4"><div class="cd-num" id="seconds">--</div></div>
+        <div class="cd-unit u4">Sec</div>
+      </div>
+    </div>
+
+    <div class="arrived-msg" id="arrived">🎉 Szu has landed in Amsterdam! 🎉</div>
+
+    <div class="card-footer">
+      <div class="footer-names">Szu → Mike</div>
+      <div class="footer-date">15 Jul 2026</div>
+      <div class="footer-flags">🇪🇸 🇳🇱 🇹🇼</div>
+    </div>
+  </div>
+
+  <script>
+    const emojis=['❤️','🧡','💛','💜','💖','💃','🕺','🎉','✈️','🌸','🌷','🥂','🎊','🌟','💫','🍊','🌺','🎈','😍','🥰','🦋','🌈'];
+    const bg=document.getElementById('emojiBg');
+    for(let i=0;i<28;i++){
+      const el=document.createElement('div');
+      el.className='emoji-float';
+      el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      const sz=1.2+Math.random()*1.8;
+      el.style.cssText=`--sz:${sz}rem;--dur:${5+Math.random()*8}s;--delay:${Math.random()*8}s;--rot:${(Math.random()>0.5?1:-1)*(180+Math.random()*360)}deg;left:${Math.random()*100}%;`;
+      bg.appendChild(el);
+    }
+
+    const target=new Date('2026-07-15T15:40:00');
+    const els={days:document.getElementById('days'),hours:document.getElementById('hours'),minutes:document.getElementById('minutes'),seconds:document.getElementById('seconds')};
+    const dynSentence=document.getElementById('dynSentence');
+    let prev={};
+
+    function pad(n){return String(n).padStart(2,'0');}
+    function flash(el){el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),400);}
+
+    function buildSentence(d,h,m){
+      const parts=[];
+      if(d>0) parts.push(`<span class="num">${d}</span> day${d!==1?'s':''}`);
+      if(h>0) parts.push(`<span class="num">${h}</span> hour${h!==1?'s':''}`);
+      if(m>0||parts.length===0) parts.push(`<span class="num">${m}</span> minute${m!==1?'s':''}`);
+      if(parts.length===1) return `${parts[0]} until Szu arrives! 🎉`;
+      if(parts.length===2) return `${parts[0]} and ${parts[1]} until Szu arrives! 🎉`;
+      return `${parts[0]}, ${parts[1]} and ${parts[2]} until Szu arrives! 🎉`;
+    }
+
+    function update(){
+      const diff=target-new Date();
+      if(diff<=0){
+        Object.values(els).forEach(el=>el.textContent='00');
+        document.getElementById('arrived').style.display='block';
+        document.getElementById('cdGrid').style.display='none';
+        dynSentence.style.display='none';
+        return;
+      }
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor((diff%86400000)/3600000);
+      const m=Math.floor((diff%3600000)/60000);
+      const s=Math.floor((diff%60000)/1000);
+      dynSentence.innerHTML=buildSentence(d,h,m);
+      const vals={days:d,hours:h,minutes:m,seconds:s};
+      Object.entries(vals).forEach(([k,v])=>{
+        const str=k==='days'?String(v):pad(v);
+        if(prev[k]!==str){els[k].textContent=str;flash(els[k]);prev[k]=str;}
+      });
+    }
+    update();
+    setInterval(update,1000);
+  </script>
+</body>
+</html>

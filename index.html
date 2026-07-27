@@ -17,7 +17,7 @@
       background-attachment:fixed;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       padding:2.5rem 1.2rem;
-      position:relative;overflow:hidden;
+      position:relative;
     }
     .emoji-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
     .emoji-float{
@@ -187,6 +187,33 @@
     .arr-footer-names{font-family:'Pacifico',cursive;font-size:1rem;color:#ff8e53;}
     .arr-footer-date{font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#ccc;}
     .arr-footer-flags{font-size:1.1rem;}
+
+    /* ===== FLOATING TABS ===== */
+    .float-tabs{
+      position:fixed;left:50%;bottom:1.1rem;transform:translateX(-50%);
+      z-index:20;display:flex;gap:4px;
+      background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);
+      border-radius:999px;padding:5px;
+      box-shadow:0 8px 30px rgba(150,60,120,0.25),0 2px 0 rgba(255,255,255,0.6) inset;
+      border:2px solid rgba(255,255,255,0.6);
+      max-width:calc(100vw - 1.6rem);
+    }
+    .float-tab{
+      appearance:none;border:none;cursor:pointer;
+      font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(0.7rem,2.8vw,0.85rem);
+      letter-spacing:0.02em;color:#b39dbf;
+      padding:0.55rem 1rem;border-radius:999px;white-space:nowrap;
+      transition:color 0.2s, background 0.25s, transform 0.15s;
+    }
+    .float-tab:active{transform:scale(0.96);}
+    .float-tab.active{
+      color:#fff;
+      background:linear-gradient(135deg,#ff6b6b,#ff8e53,#c44dff);
+      box-shadow:0 4px 14px rgba(255,100,120,0.4);
+    }
+    @media(max-width:400px){
+      .float-tab{padding:0.5rem 0.75rem;}
+    }
   </style>
 </head>
 <body>
@@ -209,8 +236,8 @@
       </div>
       <div class="route-mid">
         <div class="plane-anim">✈️</div>
-        <div class="route-date">15 · 07 · 2026</div>
-        <div class="route-date">15:40</div>
+        <div class="route-date" id="routeDate">15 · 07 · 2026</div>
+        <div class="route-date" id="routeTime">15:40</div>
       </div>
       <div class="route-city">
         <div class="route-code" style="color:#c44dff;">AMS</div>
@@ -245,7 +272,7 @@
 
     <div class="card-footer">
       <div class="footer-names">Szu → Mike</div>
-      <div class="footer-date">15 Jul 2026</div>
+      <div class="footer-date" id="footerDate">15 Jul 2026</div>
       <div class="footer-flags">🇪🇸 🇳🇱 🇹🇼</div>
     </div>
   </div>
@@ -272,9 +299,15 @@
     <div class="hearts">❤️ 🧡 💛 💜</div>
     <div class="arr-footer">
       <div class="arr-footer-names">Szu → Mike</div>
-      <div class="arr-footer-date">15 Jul 2026</div>
+      <div class="arr-footer-date" id="arrFooterDate">15 Jul 2026</div>
       <div class="arr-footer-flags">🇪🇸 🇳🇱 🇹🇼</div>
     </div>
+  </div>
+
+  <!-- ===== FLOATING TABS ===== -->
+  <div class="float-tabs" id="floatTabs">
+    <button class="float-tab active" data-key="upcoming" type="button">Upcoming</button>
+    <button class="float-tab" data-key="past" type="button">15 july 2026</button>
   </div>
 
   <script>
@@ -289,9 +322,33 @@
       bg.appendChild(el);
     }
 
-    const target=new Date('2026-07-15T15:40:00');
+    const events={
+      upcoming:{
+        target:new Date('2026-11-05T18:00:00'),
+        routeDate:'05 · 11 · 2026',
+        routeTime:'18:00',
+        footerDate:'5 Nov 2026'
+      },
+      past:{
+        target:new Date('2026-07-15T15:40:00'),
+        routeDate:'15 · 07 · 2026',
+        routeTime:'15:40',
+        footerDate:'15 Jul 2026'
+      }
+    };
+
     const els={days:document.getElementById('days'),hours:document.getElementById('hours'),minutes:document.getElementById('minutes'),seconds:document.getElementById('seconds')};
     const dynSentence=document.getElementById('dynSentence');
+    const routeDateEl=document.getElementById('routeDate');
+    const routeTimeEl=document.getElementById('routeTime');
+    const footerDateEl=document.getElementById('footerDate');
+    const arrFooterDateEl=document.getElementById('arrFooterDate');
+    const countdownCard=document.getElementById('countdownCard');
+    const arrivedCard=document.getElementById('arrivedCard');
+    const emojiBg=document.getElementById('emojiBg');
+    const confetti=document.getElementById('confetti');
+
+    let target=events.upcoming.target;
     let prev={};
     let arrivedShown=false;
 
@@ -300,7 +357,7 @@
 
     function launchConfetti(){
       const colors=['#ff6b6b','#ff8e53','#ffca28','#ff6b9d','#c44dff'];
-      const c=document.getElementById('confetti');
+      confetti.innerHTML='';
       for(let i=0;i<70;i++){
         const el=document.createElement('div');
         el.className='conf';
@@ -310,18 +367,26 @@
         el.style.animationDelay=(Math.random()*3)+'s';
         el.style.width=(6+Math.random()*8)+'px';
         el.style.height=(10+Math.random()*10)+'px';
-        c.appendChild(el);
+        confetti.appendChild(el);
       }
     }
 
     function showArrived(){
       if(arrivedShown) return;
       arrivedShown=true;
-      document.getElementById('countdownCard').style.display='none';
-      document.getElementById('emojiBg').style.display='none';
-      document.getElementById('confetti').style.display='block';
-      document.getElementById('arrivedCard').style.display='block';
+      countdownCard.style.display='none';
+      emojiBg.style.display='none';
+      confetti.style.display='block';
+      arrivedCard.style.display='block';
       launchConfetti();
+    }
+
+    function showCountdown(){
+      arrivedCard.style.display='none';
+      confetti.style.display='none';
+      confetti.innerHTML='';
+      emojiBg.style.display='block';
+      countdownCard.style.display='block';
     }
 
     function buildSentence(d,h,m){
@@ -351,7 +416,27 @@
         if(prev[k]!==str){els[k].textContent=str;flash(els[k]);prev[k]=str;}
       });
     }
-    update();
+    function selectTab(key){
+      const ev=events[key];
+      target=ev.target;
+      routeDateEl.textContent=ev.routeDate;
+      routeTimeEl.textContent=ev.routeTime;
+      footerDateEl.textContent=ev.footerDate;
+      arrFooterDateEl.textContent=ev.footerDate;
+      prev={};
+      arrivedShown=false;
+      showCountdown();
+      document.querySelectorAll('.float-tab').forEach(btn=>{
+        btn.classList.toggle('active',btn.dataset.key===key);
+      });
+      update();
+    }
+
+    document.querySelectorAll('.float-tab').forEach(btn=>{
+      btn.addEventListener('click',()=>selectTab(btn.dataset.key));
+    });
+
+    selectTab('upcoming');
     setInterval(update,1000);
   </script>
 </body>

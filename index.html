@@ -307,7 +307,8 @@
   <!-- ===== FLOATING TABS ===== -->
   <div class="float-tabs" id="floatTabs">
     <button class="float-tab active" data-key="upcoming" type="button">Upcoming</button>
-    <button class="float-tab" data-key="past" type="button">15 july 2026</button>
+    <button class="float-tab" data-key="second" type="button">5 nov 2026</button>
+    <button class="float-tab" data-key="first" type="button">15 july 2026</button>
   </div>
 
   <script>
@@ -324,12 +325,18 @@
 
     const events={
       upcoming:{
+        target:new Date('2026-12-20T18:55:00'),
+        routeDate:'20 · 12 · 2026',
+        routeTime:'18:55',
+        footerDate:'20 Dec 2026'
+      },
+      second:{
         target:new Date('2026-11-05T18:00:00'),
         routeDate:'05 · 11 · 2026',
         routeTime:'18:00',
         footerDate:'5 Nov 2026'
       },
-      past:{
+      first:{
         target:new Date('2026-07-15T15:40:00'),
         routeDate:'15 · 07 · 2026',
         routeTime:'15:40',
